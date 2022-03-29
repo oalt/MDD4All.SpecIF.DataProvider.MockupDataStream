@@ -1,6 +1,5 @@
 ﻿using MDD4All.SpecIF.DataModels;
 using MDD4All.SpecIF.DataProvider.Contracts.DataStreams;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -21,7 +20,11 @@ namespace MDD4All.SpecIF.DataProvider.MockupDataStream
         {
             if (SpecIfDataReceived != null)
             {
-                SpecIfDataReceived.Invoke(this, MockupResources);
+                SpecIfDataReceived.Invoke(this, new SpecIfDataEventArguments()
+                                                {
+                                                    Data = MockupResources
+                                                }
+                                          );
             }
         }
 
@@ -36,11 +39,9 @@ namespace MDD4All.SpecIF.DataProvider.MockupDataStream
                         Class = new Key("RC-Requirement", "1.1"),
                         Properties = new List<Property>
                         {
-                            new Property
-                            {
-                                Class = new Key("PC-Name", "1.1"),
-                                Value = "Eine Anforderung"
-                            }
+                            new Property(new Key("PC-Name", "1.1"), 
+                                         new MultilanguageText("Eine Anforderung"))
+                            
                         }
                     }
                 };
