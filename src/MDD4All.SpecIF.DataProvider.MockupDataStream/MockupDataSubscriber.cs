@@ -1,11 +1,12 @@
 ﻿using MDD4All.SpecIF.DataModels;
 using MDD4All.SpecIF.DataProvider.Contracts.DataStreams;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
 namespace MDD4All.SpecIF.DataProvider.MockupDataStream
 {
-    public class MockupDataSubscriber : ISpecIfDataSubscriber
+    public class MockupDataSubscriber : ISpecIfDataSubscriber, IDisposable
     {
         public event SpecIfDataReceivedEventHandler SpecIfDataReceived;
 
@@ -26,6 +27,12 @@ namespace MDD4All.SpecIF.DataProvider.MockupDataStream
                                                 }
                                           );
             }
+        }
+
+        public void Dispose()
+        {
+            _timer5s.Dispose();
+            SpecIfDataReceived = null;
         }
 
         private List<Resource> MockupResources
