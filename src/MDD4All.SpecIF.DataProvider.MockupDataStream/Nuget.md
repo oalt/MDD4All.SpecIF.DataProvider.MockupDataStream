@@ -1,0 +1,1 @@
+﻿Mockup data stream provider to demonstrate SpecIF data streams.
